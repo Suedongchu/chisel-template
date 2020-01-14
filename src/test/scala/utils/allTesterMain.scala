@@ -29,3 +29,20 @@ object neuronTester extends App {
         c => new neuronUniTester(c)
       }
 }
+
+object printMduleTester extends App {
+  chisel3.iotesters.Driver( () => new PrintingModule ) { c => new PrintingModuleTester(c) }
+}
+
+object arbiterTester extends App {
+  iotesters.Driver.execute(args,() => new Arbiter){
+    c => new ArbiterTester(c)
+  }
+}
+
+object fsmExampleTester extends App {
+  iotesters.Driver.execute(args,() => new FSMexample){
+    c => new FSMexampleTester(c)
+  }
+}
+

@@ -6,7 +6,7 @@ import chisel3._
 import chisel3.experimental.FixedPoint
 import org.scalatest.{FreeSpec, Matchers}
 import utils.neuronTester.args
-import utils.{FirFilter, MultiClockModule, Neuron, fifo, neuronUniTester}
+import utils.{FIRFilterGenerator, FirFilter, MultiClockModule, Neuron, fifo, neuronUniTester}
 
 
 class GCDViewer extends FreeSpec with Matchers {
@@ -52,6 +52,15 @@ class MultiClockModuleViewer extends FreeSpec with Matchers {
     val circuit = chisel3.Driver.elaborate(() => new MultiClockModule)
     val firrtl = chisel3.Driver.emit(circuit)
     val config = Config(targetDir = "test_run_dir/MultiClockModule/", firrtlSource = firrtl, useRanking = true)
+    FirrtlDiagrammer.run(config)
+  }
+}
+
+class FIRFilterGeneratorViewer extends FreeSpec with Matchers {
+  "FIRFilterGenerator circuit to visualize" in {
+    val circuit = chisel3.Driver.elaborate(() => new FIRFilterGenerator(8))
+    val firrtl = chisel3.Driver.emit(circuit)
+    val config = Config(targetDir = "test_run_dir/FIRFilterGenerator/", firrtlSource = firrtl, useRanking = true)
     FirrtlDiagrammer.run(config)
   }
 }

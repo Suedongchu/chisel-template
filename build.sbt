@@ -42,11 +42,17 @@ resolvers ++= Seq(
 // Provide a managed dependency on X if -DXVersion="" is supplied on the command line.
 val defaultVersions = Map(
   "chisel3" -> "3.2.+",
-  "chisel-iotesters" -> "1.3.+"
+  "chisel-iotesters" -> "1.3.+",
+  "chisel-testers2" -> "0.1.+",
+  "dsptools" -> "1.2.+",
+  "rocket-dsptools" -> "1.2.+",
+  "firrtl-diagrammer" -> "1.1.+"
   )
 
-libraryDependencies ++= Seq("chisel3","chisel-iotesters").map {
+libraryDependencies ++= Seq("chisel3","chisel-iotesters","chisel-testers2","dsptools","rocket-dsptools","firrtl-diagrammer").map {
   dep: String => "edu.berkeley.cs" %% dep % sys.props.getOrElse(dep + "Version", defaultVersions(dep)) }
+
+libraryDependencies += "org.scalanlp" %% "breeze" % "0.13.2"
 
 scalacOptions ++= scalacOptionsVersion(scalaVersion.value)
 

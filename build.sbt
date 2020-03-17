@@ -53,6 +53,7 @@ libraryDependencies ++= Seq("chisel3","chisel-iotesters","chisel-testers2","dspt
   dep: String => "edu.berkeley.cs" %% dep % sys.props.getOrElse(dep + "Version", defaultVersions(dep)) }
 
 libraryDependencies += "org.scalanlp" %% "breeze" % "0.13.2"
+//libraryDependencies += "edu.berkeley.cs" %% "testchipip" % "1.0-020719-SNAPSHOT"
 
 scalacOptions ++= scalacOptionsVersion(scalaVersion.value)
 

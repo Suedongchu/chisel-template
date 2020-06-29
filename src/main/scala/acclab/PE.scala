@@ -41,6 +41,7 @@ class PE[T <: Data](inputType: T, outputType: T, accType: T, df: Dataflow.Value,
   val a  = ShiftRegister(io.in_a, latency)
   val b  = ShiftRegister(io.in_b, latency)
   val d  = ShiftRegister(io.in_d, latency)
+  //double buffer
   val c1 = Reg(cType)
   val c2 = Reg(cType)
   val dataflow = ShiftRegister(io.in_control.dataflow, latency)
@@ -81,7 +82,7 @@ class PE[T <: Data](inputType: T, outputType: T, accType: T, df: Dataflow.Value,
   }.elsewhen ((df == Dataflow.WS).B || ((df == Dataflow.BOTH).B && dataflow === WEIGHT_STATIONARY)) {
     when(prop === PROPAGATE) {
       io.out_c := c1 //used as pushing weight to next PE
-      io.out_b := b.mac(a, c2.withWidthOf(inputType)) //used as computing path
+      io.out_b := b.mac(a, c2.withWidthOf(inputType)) //used as computing 
       c1 := d // used as peopagating weight from previous one
     }.otherwise {
       io.out_c := c2

@@ -19,6 +19,8 @@ class PEUnitTester(c: PE[UInt]) extends PeekPokeTester(c) {
 	poke(pe.io.in_control.propagate, 0)
 	expect(pe.io.out_b, 202)
 
+	step(1)
+
 }
 
 object PEMain extends App {

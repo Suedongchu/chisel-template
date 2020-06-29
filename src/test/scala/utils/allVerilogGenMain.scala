@@ -19,7 +19,7 @@ object TileVerilog extends App{
 }
 
 object MeshVerilog extends App{
-  chisel3.Driver.execute(args, () => new Mesh[UInt](UInt(1.W), UInt(1.W), UInt(1.W),
+  chisel3.Driver.execute(args, () => new Mesh[UInt](UInt(32.W), UInt(32.W), UInt(32.W),
     Dataflow.WS, 1,
     2, 2,
   2, 2) )

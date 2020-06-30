@@ -80,7 +80,7 @@ class Tile[T <: Data : Arithmetic](inputType: T, outputType: T, accType: T, df: 
 
   // Drive the Tile's bottom IO
   for (c <- 0 until columns) {
-    io.out_c(c) := tile(rows-1)(c).io.out_c
+    io.out_c(c) := tile(rows-1)(c).io.out_c // final c is the last pe's c
     io.out_b(c) := tile(rows-1)(c).io.out_b
     io.out_control(c) := tile(rows-1)(c).io.out_control
     io.out_valid(c) := tile(rows-1)(c).io.out_valid
@@ -88,6 +88,6 @@ class Tile[T <: Data : Arithmetic](inputType: T, outputType: T, accType: T, df: 
 
   // Drive the Tile's right IO
   for (r <- 0 until rows) {
-    io.out_a(r) := tile(r)(columns-1).io.out_a
+    io.out_a(r) := tile(r)(columns-1).io.out_a // continue delivering the input feature
   }
 }

@@ -1,8 +1,14 @@
 package acclab
 
+
 import chisel3._
 import chisel3.iotesters
 import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
+
+import dotvisualizer._
+import chisel3.experimental.FixedPoint
+import org.scalatest.{FreeSpec, Matchers}
+
 
 class TileUniTester(c: Tile[UInt]) extends PeekPokeTester(c) {
 	private val tile = c
@@ -88,5 +94,14 @@ object TileMain extends App{
 }
 
 object TileVerilog extends App{
-	chisel3.Driver.execute(args, () => new Tile[UInt](UInt(32.W), UInt(32.W), UInt(32.W), Dataflow.WS, 0, 4, 4))
+	chisel3.Driver.execute(args, () => new Tile[UInt](UInt(32.W), UInt(32.W), UInt(32.W), Dataflow.WS, 1, 4, 4))
+}
+
+class TileViewer extends FreeSpec with Matchers {
+  "Tile circuit to visualize" in {
+    val circuit = chisel3.Driver.elaborate(() => new Tile[UInt](UInt(32.W), UInt(32.W), UInt(32.W), Dataflow.WS, 1, 4, 4))
+    val firrtl = chisel3.Driver.emit(circuit)
+    val config = Config(targetDir = "test_run_dir/tile/", firrtlSource = firrtl, useRanking = true)
+    FirrtlDiagrammer.run(config)
+  }
 }

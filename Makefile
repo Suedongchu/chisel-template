@@ -18,7 +18,10 @@ upload:clean
 	git add . && git commit -m 'auto push by makefile' && git push 
 
 wave:clean tester 
-	 gtkwave test_run_dir/$(PACKAGE).${MODULE}Main*/*.vcd
+	gtkwave test_run_dir/$(PACKAGE).${MODULE}Main*/*.vcd
+
+graph:
+	$(SBT) "testOnly $(PACKAGE).${MODULE}Viewer"
 
 clean:
 	rm -rf *.json *.v *.fir test_run_dir
